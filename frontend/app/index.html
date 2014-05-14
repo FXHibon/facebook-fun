@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Facebook friends</title>
+  <link rel="stylesheet" href="../vendor/css/bootstrap.css" />
+  <link rel="stylesheet" href="../vendor/css/bootstrap-theme.css" />
+</head>
+<body>
+  <div class="container" id="app-container">
+    <div class="row" id="search-container">
+      <div class="col-md-12 well">
+
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="search-query" placeholder="Type a search">
+          </div>
+
+          <div class="form-group">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">Sort by name</button>
+              <button type="button" class="btn btn-default">Sort by birthday</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div><!-- /row -->
+
+    <div class="row" id="statistics-container">
+      <div class="col-md-4 statistic">a</div>
+      <div class="col-md-4 statistic">b</div>
+      <div class="col-md-4 statistic">c</div>
+    </div><!-- /row -->
+
+    <div class="row" id="profiles-container">
+
+    </div><!-- /row -->
+  </div>
+
+<!-- templates -->
+<script type="text/plain" id="tmpl_profile" charset="utf-8">
+<div class="col-md-4">
+  <div class="thumbnail profile">
+    <img src="<%= pictureUrl %>">
+    <div class="caption">
+      <%= name %> - <%= surname %>
+    </div>
+  </div>
+</div>
+</script>
+
+
+<!-- vendor -->
+<script src="../vendor/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="../vendor/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../vendor/js/lodash.js" type="text/javascript" charset="utf-8"></script>
+<script src="../vendor/js/backbone.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- app -->
+<script type="text/javascript">var FbFriends = {}; // declare "namespace"</script>
+<script src="data.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/App.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/Friend.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/Friends.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- bootstrap -->
+<script type="text/javascript" charset="utf-8">
+var app = new FbFriends.App({
+  friends: new FbFriends.Friends(FRIENDS),
+  el: $('#app-container')[0],
+
+  // inner views
+  profilesView: new FbFriends.ProfilesView({
+    el: $('#profiles-container')[0],
+    tmpl: _.template($('#tmpl_profile').html())
+  })
+});
+
+app.render();
+</script>
+
+</body>
+</html>
