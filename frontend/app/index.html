@@ -5,11 +5,13 @@
   <title>Facebook friends</title>
   <link rel="stylesheet" href="../vendor/css/bootstrap.css" />
   <link rel="stylesheet" href="../vendor/css/bootstrap-theme.css" />
+  <link rel="stylesheet" href="../static/css/perso.css" />
+
 </head>
 <body>
   <div class="container" id="app-container">
     <div class="row" id="search-container">
-      <div class="col-md-12 well">
+      <div class="col-md-6 col-md-offset-3 well">
 
         <form class="form-inline" role="form">
           <div class="form-group">
@@ -44,7 +46,7 @@
   <div class="thumbnail profile">
     <img src="<%= pictureUrl %>">
     <div class="caption">
-      <%= name %> - <%= surname %>
+      <%= name %> - <%= surname %> - Né le <%= birthday_date %>
     </div>
   </div>
 </div>
@@ -64,21 +66,31 @@
 <script src="friends/Friend.js" type="text/javascript" charset="utf-8"></script>
 <script src="friends/Friends.js" type="text/javascript" charset="utf-8"></script>
 <script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/SearchView.js" type="text/javascript" charset="utf-8"></script>
+
+
 
 <!-- bootstrap -->
 <script type="text/javascript" charset="utf-8">
+var friends = new FbFriends.Friends();
 var app = new FbFriends.App({
-  friends: new FbFriends.Friends(FRIENDS),
+  
   el: $('#app-container')[0],
 
   // inner views
+  searchView: new FbFriends.SearchView({
+    el: $("#search-container")[0],
+    friends: friends
+  }),
+
   profilesView: new FbFriends.ProfilesView({
     el: $('#profiles-container')[0],
-    tmpl: _.template($('#tmpl_profile').html())
+    tmpl: _.template($('#tmpl_profile').html()),
+    friends: friends
   })
 });
 
-app.render();
+friends.reset(FRIENDS);
 </script>
 
 </body>
