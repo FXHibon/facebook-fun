@@ -68,18 +68,16 @@
 <script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
 <script src="friends/SearchView.js" type="text/javascript" charset="utf-8"></script>
 
-
-
 <!-- bootstrap -->
 <script type="text/javascript" charset="utf-8">
 var friends = new FbFriends.Friends();
+
 var app = new FbFriends.App({
-  
   el: $('#app-container')[0],
 
   // inner views
   searchView: new FbFriends.SearchView({
-    el: $("#search-container")[0],
+    el: $('#search-container')[0],
     friends: friends
   }),
 

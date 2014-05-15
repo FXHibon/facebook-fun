@@ -3,13 +3,11 @@
 FbFriends.ProfilesView = Backbone.View.extend({
   initialize: function(options){
     _.extend(this, options);
-    this.friends.on("reset", function (friends) {
-      this.renderProfiles(friends);
-    })
+    this.friends.on('reset', this.renderProfiles, this);
   },
 
-  renderProfiles: function(friends){
-    var html = friends.map(function(friendModel){
+  renderProfiles: function(coll){
+    var html = coll.map(function(friendModel){
       return this.tmpl({
         name: friendModel.get('first_name'),
         surname: friendModel.get('last_name'),

@@ -1,9 +1,17 @@
-FbFriends.Friends = Backbone.Collection.extend({
-  model: FbFriends.Friend
+'use strict';
 
-  filterByFullName: function (query) {
-  	var filteredCall = this.filter(function(friendModel) {
-  		return friendModel.filterByFullName(query);
-  	})
+FbFriends.Friends = Backbone.Collection.extend({
+  model: FbFriends.Friend,
+
+  /**
+   * [filterByFullname description]
+   * @param  {String} query
+   */
+  filterByFullname: function(query){
+    console.log('query', query);
+    var filteredColl = this.filter(function(friendModel){
+      return friendModel.fullNameContains(query);
+    });
+    this.trigger('reset', filteredColl);
   }
 });
