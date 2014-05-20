@@ -20,8 +20,8 @@
 
           <div class="form-group">
             <div class="btn-group">
-              <button type="button" class="btn btn-default">Sort by name</button>
-              <button type="button" class="btn btn-default">Sort by birthday</button>
+              <button type="button" class="btn btn-default" id="search-by-name">Sort by name</button>
+              <button type="button" class="btn btn-default" id="search-by-birthday">Sort by birthday</button>
             </div>
           </div>
 
@@ -67,6 +67,7 @@
 <script src="friends/Friends.js" type="text/javascript" charset="utf-8"></script>
 <script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
 <script src="friends/SearchView.js" type="text/javascript" charset="utf-8"></script>
+<script src="friends/SortView.js" type="text/javascript" charset="utf-8"></script>
 
 <!-- bootstrap -->
 <script type="text/javascript" charset="utf-8">
@@ -77,6 +78,11 @@ var app = new FbFriends.App({
 
   // inner views
   searchView: new FbFriends.SearchView({
+    el: $('#search-container')[0],
+    friends: friends
+  }),
+  
+  sortView: new FbFriends.SortView({
     el: $('#search-container')[0],
     friends: friends
   }),

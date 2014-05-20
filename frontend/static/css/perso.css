@@ -1,8 +1,3 @@
 body {
 	margin-top: 2%;
 }
-
-#profiles-container {
-	height: 620px;
-	overflow-y: auto;
-}

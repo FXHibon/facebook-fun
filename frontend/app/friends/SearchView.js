@@ -1,3 +1,5 @@
+'use strict';
+
 FbFriends.SearchView = Backbone.View.extend({
   events:{
     'keyup #search-query': 'search'
