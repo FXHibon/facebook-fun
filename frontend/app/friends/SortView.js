@@ -11,16 +11,10 @@ FbFriends.SortView = Backbone.View.extend({
   },
 
   sortByName: function(event){
-    console.log("sorting");
-    console.log(this.friends.models[0].get("last_name"));
-    var sortedArray = _.sortBy(this.friends.models, function (val) { return val.get("last_name"); });
-    this.friends.trigger('reset', sortedArray);
+    this.friends.sortByName();
   },
   
   sortByBirthday: function(event){
-    console.log("sorting");
-    
-    var sortedArray = _.sortBy(this.friends.models, function (val) { return val.get("birthday_date"); });
-    this.friends.trigger('reset', sortedArray);
+    this.friends.sortByBirthday();
   }
 });
