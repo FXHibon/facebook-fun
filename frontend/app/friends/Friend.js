@@ -10,5 +10,11 @@ FbFriends.Friend = Backbone.Model.extend({
           .replace('{first}', this.get('first_name'))
           .replace('{last}', this.get('last_name')).toLowerCase()
         .indexOf(query.toLowerCase()) !== -1;
+  },
+  
+  getAttribute: function(attr) {
+    return attr.split(".").reduce(
+      function(memo, at) {return (_.isObject(memo) ? memo : {})[at];},
+      this.attributes);
   }
 });

@@ -2,8 +2,7 @@
 
 FbFriends.SortView = Backbone.View.extend({
   events:{
-    'click #search-by-name': 'sortByName',
-    'click #search-by-birthday': 'sortByBirthday'
+    'click #sort-by-name': 'sortByName'
   },
 
   initialize: function(options){
@@ -12,9 +11,5 @@ FbFriends.SortView = Backbone.View.extend({
 
   sortByName: function(event){
     this.friends.sortByName();
-  },
-  
-  sortByBirthday: function(event){
-    this.friends.sortByBirthday();
   }
 });

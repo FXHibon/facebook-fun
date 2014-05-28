@@ -1,101 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Facebook friends</title>
-  <link rel="stylesheet" href="../vendor/css/bootstrap.css" />
-  <link rel="stylesheet" href="../vendor/css/bootstrap-theme.css" />
-  <link rel="stylesheet" href="../static/css/perso.css" />
+    <head>
+        <meta charset="utf-8">
+        <title>Facebook friends</title>
+        <link rel="stylesheet" href="../vendor/css/bootstrap.css" />
+        <link rel="stylesheet" href="../vendor/css/bootstrap-theme.css" />
+        <link rel="stylesheet" href="../static/css/perso.css" />
 
-</head>
-<body>
-  <div class="container" id="app-container">
-    <div class="row" id="search-container">
-      <div class="col-md-6 col-md-offset-3 well">
+    </head>
+    <body>
+        <div class="container" id="app-container">
+            <div class="row" id="search-container">
+                <div class="col-md-6 col-md-offset-3 well">
 
-        <form class="form-inline" role="form">
-          <div class="form-group">
-            <input type="text" class="form-control" id="search-query" placeholder="Type a search">
-          </div>
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="search-query" placeholder="Type a search">
+                        </div>
 
-          <div class="form-group">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default" id="search-by-name">Sort by name</button>
-              <button type="button" class="btn btn-default" id="search-by-birthday">Sort by birthday</button>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default form-control" id="sort-by-name">Sort by name</button>
+                            </div>
+                            <div class="btn-group" id="attributes-container">
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
             </div>
-          </div>
 
-        </form>
-      </div>
-    </div><!-- /row -->
+            <div class="row well" id="stats-container">
+                <div class="col-md-4 pie-sexes"></div>
+                <div class="col-md-4 pie-top-villes"></div>
+                <div class="col-md-4 pie-relation"></div>
+                <div id="pie-1"></div>
+            </div>
 
-    <div class="row" id="statistics-container">
-      <div class="col-md-4 statistic"></div>
-      <div class="col-md-4 statistic"></div>
-      <div class="col-md-4 statistic"></div>
-    </div><!-- /row -->
+            <div class="row" id="profiles-container">
 
-    <div class="row" id="profiles-container">
+            </div><!-- /row -->
+        </div>
 
-    </div><!-- /row -->
-  </div>
+        <!-- templates -->
+        <script type="text/plain" id="tmpl_profile" charset="utf-8">
+            <div class="col-md-4 col-md-offset-4">
+            <div class="thumbnail profile">
+            <img src="<%= pictureUrl %>">
+            <div class="caption">
+            <%= name %> - <%= surname %> - Né le <%= birthday_date %>
+            </div>
+            </div>
+            </div>
+        </script>
 
-<!-- templates -->
-<script type="text/plain" id="tmpl_profile" charset="utf-8">
-<div class="col-md-4 col-md-offset-4">
-  <div class="thumbnail profile">
-    <img src="<%= pictureUrl %>">
-    <div class="caption">
-      <%= name %> - <%= surname %> - Né le <%= birthday_date %>
-    </div>
-  </div>
-</div>
-</script>
+        <script type="text/plain" id="tmpl_attrs" charset="utf-8">
+            <select class="form-control">
+            <% attrs.forEach(function(attr){ %>
+            <option value="<%= attr %>"><%= attr %></option>
+            <% }); %>
+            </select>
+        </script>
 
 
-<!-- vendor -->
-<script src="../vendor/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="../vendor/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script src="../vendor/js/lodash.js" type="text/javascript" charset="utf-8"></script>
-<script src="../vendor/js/backbone.js" type="text/javascript" charset="utf-8"></script>
+        <!-- vendor -->
+        <script src="../vendor/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../vendor/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../vendor/js/lodash.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../vendor/js/backbone.js" type="text/javascript" charset="utf-8"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<!-- app -->
-<script type="text/javascript">var FbFriends = {}; // declare "namespace"</script>
-<script src="data.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/App.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/Friend.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/Friends.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/SearchView.js" type="text/javascript" charset="utf-8"></script>
-<script src="friends/SortView.js" type="text/javascript" charset="utf-8"></script>
+        <!-- app -->
+        <script type="text/javascript">var FbFriends = {}; // declare "namespace"</script>
+        <script src="data.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/App.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/Friend.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/Friends.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/ProfilesView.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/SearchView.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/SortView.js" type="text/javascript" charset="utf-8"></script>
+        <script src="friends/statistics/StatsView.js" type="text/javascript" charset="utf-8"></script>
 
-<!-- bootstrap -->
-<script type="text/javascript" charset="utf-8">
+        <!-- bootstrap -->
+        <script type="text/javascript" charset="utf-8">
 var friends = new FbFriends.Friends();
 
 var app = new FbFriends.App({
-  el: $('#app-container')[0],
-
-  // inner views
-  searchView: new FbFriends.SearchView({
-    el: $('#search-container')[0],
-    friends: friends
-  }),
-  
-  sortView: new FbFriends.SortView({
-    el: $('#search-container')[0],
-    friends: friends
-  }),
-
-  profilesView: new FbFriends.ProfilesView({
-    el: $('#profiles-container')[0],
-    tmpl: _.template($('#tmpl_profile').html()),
-    friends: friends
-  })
+    el: $('#app-container')[0],
+    // inner views
+    searchView: new FbFriends.SearchView({
+        el: $('#search-container')[0],
+        tmpl: _.template($('#tmpl_attrs').html()),
+        friends: friends
+    }),
+    sortView: new FbFriends.SortView({
+        el: $('#search-container')[0],
+        friends: friends
+    }),
+    profilesView: new FbFriends.ProfilesView({
+        el: $('#profiles-container')[0],
+        tmpl: _.template($('#tmpl_profile').html()),
+        friends: friends
+    }),
+    statsView: new FbFriends.StatsView({
+        el: $('#stats-container')[0],
+        friends: friends
+    })
 });
 
 friends.reset(FRIENDS);
-</script>
+        </script>
 
-</body>
+    </body>
 </html>
